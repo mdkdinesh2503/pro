@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link rel="stylesheet" href="css/master.css" type="text/css">
+</head>
+
+<body>
+
+    <div>
+        <h1 class="header">Tic Tac Toe</h1>
+    </div>
+    <div class="enter-players">
+
+        <form id="player-form">
+            <div class="player-container">
+                <label for="player1">Player 1</label>
+                <input type="text" placeholder="enter name" id="player1" class="input-field" />
+            </div>
+            <div class="player-container">
+                <label for="player2">Player 2</label>
+                <input type="text" placeholder="enter name" id="player2" class="input-field" />
+            </div>
+
+            <input type="submit" class="submit-btn" value="Start Game" />
+        </form>
+    </div>
+
+    <div class="board__main hide-container">
+        <div class="board___player-turn"></div>
+
+        <div class="board__container">
+            <div class="board__cell">
+                <div class="letter" data-id="0"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="1"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="2"></div>
+            </div>
+
+            <div class="board__cell">
+                <div class="letter" data-id="3"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="4"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="5"></div>
+            </div>
+
+            <div class="board__cell">
+                <div class="letter" data-id="6"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="7"></div>
+            </div>
+            <div class="board__cell">
+                <div class="letter" data-id="8"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reset reset--hidden">
+        <div class="reset__text">
+        </div>
+        <button class="replay-btn" value="replay">
+            <span class="clear-board">Clear Board</span>
+        </button>
+    </div>
+</body>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "Helvetica", sans-serif;
+        box-sizing: border-box;
+    }
+
+    .hide-container {
+        display: none;
+    }
+
+    .header {
+        text-align: center;
+        margin: 15px 0;
+        font-family: "Permanent Marker";
+    }
+
+    .enter-players {
+        margin: 0 auto;
+        width: 80%;
+        text-align: center;
+        position: relative;
+    }
+
+    .input-field {
+        border: 2px solid #000;
+        outline: none;
+        padding: 4px 8px;
+        margin: 0 0 10px 4px;
+        font-size: 18px;
+    }
+
+    .input-field:focus {
+        border: 2px solid #ff0000;
+    }
+
+    .submit-btn {
+        border: 2px solid #000;
+        padding: 8px 8px;
+        font-size: 18px;
+        width: 250px;
+        border-radius: 5px;
+        margin-top: 10px;
+        background-color: #fff;
+    }
+
+    .submit-btn:active,
+    .submit-btn:focus {
+        outline: none;
+        border: 2px solid #ff0000;
+    }
+
+    .submit-btn:hover {
+        background-color: #ece9e9;
+    }
+
+    .board___player-turn {
+        text-align: center;
+        margin: 10px 0 10px;
+        height: 54px;
+    }
+
+    .name--style {
+        font-size: 22px;
+    }
+
+    .board__container {
+        width: 40%;
+        background-color: rgb(255, 124, 2);
+        margin: 0 auto;
+        font-size: 0;
+        border: 2px solid #000;
+        -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+    }
+
+    .board__cell {
+        width: calc(100% / 3);
+        display: inline-block;
+        font-size: 40px;
+        text-align: center;
+        border: 2px solid #000;
+        padding: 20px;
+        vertical-align: top;
+        font-family: "Permanent Marker";
+    }
+
+    .board__cell--winner {
+        background-color: #00aeff;
+    }
+
+    .letter {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: "Permanent Marker";
+    }
+
+    /* WINNER CONTAINER */
+    .reset {
+        text-align: center;
+        margin: 20px auto 0;
+    }
+
+    .reset--hidden {
+        display: none;
+    }
+
+    .replay-btn {
+        width: 25%;
+        padding: 10px 20px;
+        border: 2px solid #000;
+        border-radius: 5px;
+        outline: none;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin-top: 12px;
+        word-spacing: 3px;
+        background-color: #fff;
+    }
+
+    .replay-btn:hover,
+    .replay-btn:active {
+        outline: none;
+        color: #fff;
+        background-color: #000;
+    }
+
+    .congratulations {
+        font-size: 24px;
+    }
+
+    .u-r-winner {
+        font-size: 18px;
+        height: 18px;
+        line-height: 18px;
+        margin: 2px 0;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .board__cell {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .replay-btn {
+            width: 50%;
+        }
+    }
+</style>
+<script>
+    "use strict";
+
+    window.addEventListener('load', app);
+
+    let gameBoard = ['', '', '', '', '', '', '', '', ''];
+    let turn = 0; // Keeps track if X or O player's turn
+    let winner = false;
+
+    // CREATE PLAYER
+    const player = (name) => {
+        name = name;
+        return { name };
+    };
+
+    let playerX = player("");
+    let playerY = player("");
+
+    // INITIALIZE APP
+    function app() {
+        let inputField = document.querySelector('.input-field').focus();
+
+        const addPlayerForm = document.getElementById('player-form');
+        addPlayerForm.addEventListener('submit', addPlayers);
+
+        let replayButton = document.querySelector('.replay-btn');
+        replayButton.addEventListener('click', resetBoard);
+    }
+
+    // Add PLAYERS
+    function addPlayers(event) {
+        event.preventDefault();
+
+        if (this.player1.value === '' || this.player2.value === '') {
+            alert('You Must Enter a Name for Each Field');
+            return;
+        }
+
+        const playerFormContainer = document.querySelector('.enter-players');
+        const boardMain = document.querySelector('.board__main');
+        playerFormContainer.classList.add('hide-container');
+        boardMain.classList.remove('hide-container');
+
+        playerX.name = this.player1.value;
+        playerY.name = this.player2.value;
+        buildBoard();
+    }
+
+    // RETURN CURRENT PLAYER
+    function currentPlayer() {
+        return turn % 2 === 0 ? 'X' : 'O';
+    }
+
+    // Resize squares in event browser is resized
+    window.addEventListener("resize", onResize);
+    function onResize() {
+        let allCells = document.querySelectorAll('.board__cell');
+        let cellHeight = allCells[0].offsetWidth;
+
+        allCells.forEach(cell => {
+            cell.style.height = `${cellHeight}px`;
+        });
+    }
+
+    // Build Board
+    function buildBoard() {
+        let resetContainer = document.querySelector('.reset');
+        resetContainer.classList.remove('reset--hidden');
+
+        onResize();
+        addCellClickListener();
+        changeBoardHeaderNames();
+    }
+
+    // CELL CLICK EVENT FOR PLAYER TO ATTEMPT TO MAKE MOVE
+    function makeMove(event) {
+        console.log(turn);
+
+        let currentCell = parseInt(event.currentTarget.firstElementChild.dataset.id);
+        let cellToAddToken = document.querySelector(`[data-id='${currentCell}']`);
+
+        if (cellToAddToken.innerHTML !== '') {
+            console.log('This cell is already taken.');
+            return;
+        } else {
+            if (currentPlayer() === 'X') {
+                cellToAddToken.textContent = currentPlayer();
+                gameBoard[currentCell] = 'X';
+            } else {
+                cellToAddToken.textContent = currentPlayer();
+                gameBoard[currentCell] = 'O';
+            }
+        }
+
+        // CHECK IF WE HAVE A WINNER
+        isWinner();
+
+        // Update turn count so next player can choose
+        turn++;
+
+        // CHANGE BOARD HEADER INFO
+        changeBoardHeaderNames();
+    }
+
+    function checkIfTie() {
+        if (turn > 7) {
+            alert('game over a tie')
+        }
+    }
+
+    function isWinner() {
+        const winningSequences = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        winningSequences.forEach(winningCombos => {
+            let cell1 = winningCombos[0];
+            let cell2 = winningCombos[1];
+            let cell3 = winningCombos[2];
+            if (
+                gameBoard[cell1] === currentPlayer() &&
+                gameBoard[cell2] === currentPlayer() &&
+                gameBoard[cell3] === currentPlayer()
+            ) {
+
+
+                const cells = document.querySelectorAll('.board__cell');
+                let letterId1 = document.querySelector(`[data-id='${cell1}']`);
+                let letterId2 = document.querySelector(`[data-id='${cell2}']`);
+                let letterId3 = document.querySelector(`[data-id='${cell3}']`);
+
+                cells.forEach(cell => {
+                    let cellId = cell.firstElementChild.dataset.id;
+
+                    if (cellId == cell1 || cellId == cell2 || cellId == cell3) {
+                        cell.classList.add('board__cell--winner');
+                    }
+                });
+
+                let currentPlayerText = document.querySelector('.board___player-turn');
+                if (currentPlayer() === 'X') {
+                    currentPlayerText.innerHTML = `
+          <div class="congratulations">Congratulations ${playerX.name}</div>
+          <div class="u-r-winner">You are our winner!</div>
+        `;
+                    winner = true;
+                    removeCellClickListener();
+                    return true;
+                } else {
+                    currentPlayerText.innerHTML = `
+          <div class="congratulations">Congratulations ${playerY.name}</div>
+          <div class="u-r-winner">You are our winner!</div>
+        `;
+                    winner = true;
+                    removeCellClickListener();
+                    return true;
+                }
+            }
+        });
+
+        if (!winner) {
+            checkIfTie();
+        }
+
+        return false;
+    }
+
+    function changeBoardHeaderNames() {
+        if (!winner) {
+            let currentPlayerText = document.querySelector('.board___player-turn');
+            if (currentPlayer() === 'X') {
+                currentPlayerText.innerHTML = `
+        <span class="name--style">${playerX.name}</span>, you are up!
+        <div class="u-r-winner"></div>
+      `
+            } else {
+                currentPlayerText.innerHTML = `
+        <span class="name--style">${playerY.name}</span>, you are up.
+        <div class="u-r-winner"></div>
+      `
+            }
+        }
+    }
+
+    function resetBoard() {
+        console.log('resetting');
+
+        gameBoard = ['', '', '', '', '', '', '', '', ''];
+
+        let cellToAddToken = document.querySelectorAll('.letter');
+        cellToAddToken.forEach(square => {
+            square.textContent = '';
+            square.parentElement.classList.remove('board__cell--winner');
+        });
+
+        turn = 0;
+        winner = false;
+
+        let currentPlayerText = document.querySelector('.board___player-turn');
+        currentPlayerText.innerHTML = `
+    <span class="name--style">${playerX.name}</span>, you are up!
+    <div class="u-r-winner"></div>
+  `
+
+        addCellClickListener();
+    }
+
+    function addCellClickListener() {
+        const cells = document.querySelectorAll('.board__cell');
+        cells.forEach(cell => {
+            cell.addEventListener('click', makeMove);
+        });
+    }
+
+    function removeCellClickListener() {
+        let allCells = document.querySelectorAll('.board__cell');
+        allCells.forEach(cell => {
+            cell.removeEventListener('click', makeMove);
+        });
+    }
+
+    document.onkeydown = function (e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {//Alt+c, Alt+v will also be disabled sadly.
+            alert('Script Has Been Blocked By User');
+        }
+        return false;
+    };
+
+    $(document).on({
+        "contextmenu": function (e) {
+            console.log("ctx menu button:", e.which);
+
+            // Stop the context menu
+            e.preventDefault();
+        },
+        "mousedown": function (e) {
+            console.log("normal mouse down:", e.which);
+        },
+        "mouseup": function (e) {
+            console.log("normal mouse up:", e.which);
+        }
+    });
+</script>
+
+</html>
